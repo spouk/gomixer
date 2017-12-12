@@ -12,7 +12,6 @@ import (
 	"reflect"
 	"math/rand"
 	"strconv"
-
 )
 
 type convert struct {
@@ -140,7 +139,7 @@ func (m *convert) DirectStringtoIntSlice(a []string) []int {
 func (m *convert) DirectStringtoInt64Slice(a []string) []int64 {
 	var result []int64
 	if len(a) > 0 {
-		for _, x:= range a {
+		for _, x := range a {
 			if res, err := strconv.Atoi(x); err != nil {
 				m.logger.Printf(defConverter, err.Error())
 				continue
@@ -151,7 +150,7 @@ func (m *convert) DirectStringtoInt64Slice(a []string) []int64 {
 	}
 	return result
 }
-func (m *convert) DirectStringFormtoBool(v string) bool{
+func (m *convert) DirectStringFormtoBool(v string) bool {
 	if v == "" {
 		return false
 	}
