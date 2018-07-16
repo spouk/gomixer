@@ -10,29 +10,29 @@ import (
 )
 
 const (
-	logConfigPrefix           = "[configurator] "
-	logConfigFlags            = log.Ldate | log.Ltime | log.Lshortfile
-	successReadConfigFile     = "файл конфигурации успешно прочитан"
-	msgsuccessReadDumpConfig  = "дамп конфига успешно прочитан"
-	msgsuccessWriteDumpConfig = "дамп конфига успешно записан"
-	msgerrorWriteDumpConfig   = "дамп конфига записан с ошибкой"
+    logConfigPrefix           = "[configurator] "
+    logConfigFlags            = log.Ldate | log.Ltime | log.Lshortfile
+    successReadConfigFile     = "файл конфигурации успешно прочитан"
+    msgsuccessReadDumpConfig  = "дамп конфига успешно прочитан"
+    msgsuccessWriteDumpConfig = "дамп конфига успешно записан"
+    msgerrorWriteDumpConfig   = "дамп конфига записан с ошибкой"
 
-	dumpfileflag = os.O_CREATE | os.O_RDWR | os.O_TRUNC
-	dumpfileperm = 0666
+    dumpfileflag = os.O_CREATE | os.O_RDWR | os.O_TRUNC
+    dumpfileperm = 0666
 )
 
 type configurator struct {
-	logger             *log.Logger
-	pathDumpConfigFile string
-	Config             interface{}
+    logger             *log.Logger
+    pathDumpConfigFile string
+    Config             interface{}
 }
 
 func NewConfigurator(fileConfigYaml string, logout io.Writer, config interface{}) *configurator {
-	//создаю инстанс конфигуратора
-	c := &configurator{
-		Config:config,
-	}
-	//создаю логгер
+    //создаю инстанс конфигуратора
+    c := &configurator{
+	Config:config,
+    }
+    //создаю логгер
 	if logout == nil {
 		c.logger = log.New(os.Stdout, logConfigPrefix, logConfigFlags)
 	} else {
