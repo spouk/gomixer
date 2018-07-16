@@ -540,6 +540,7 @@ func (m *Gomixer) staticHandler(c Carry) error {
 
 	return nil
 }
+
 //---------------------------------------------------------------------------
 //  КУКИСЫ
 //---------------------------------------------------------------------------
@@ -555,15 +556,15 @@ func (m *Gomixer) NewCook(cookName string, salt string, c Carry) (http.Cookie) {
 	cook.Path = "/"
 	return cook
 }
+
 //генерация нового значения для кукиса
 func (m *Gomixer) cookgeneratenew(salt string) string {
 	return fmt.Sprintf("%x", md5.Sum([]byte(time.Now().String()+salt)))
 }
 
-func (m *Gomixer) TimerFuncAdd(f FuncTimeTicker)  {
+func (m *Gomixer) TimerFuncAdd(f FuncTimeTicker) {
 	m.stockFuncTimer = append(m.stockFuncTimer, f)
 }
-
 
 //---------------------------------------------------------------------------
 //  проверка на наличия файла
@@ -747,6 +748,38 @@ func (m *Gomixer) timerFuncRuner() {
 			}
 		default:
 			time.Sleep(time.Second * 2)
+		}
+	}
+}
+
+//---------------------------------------------------------------------------
+//  show middlewares
+//---------------------------------------------------------------------------
+func (m *Gomixer) ShowMiddlewares(all bool) {
+	if all {
+		//	show slice all middlewares
+		if len(m.middlewaresAll) == 0 {
+			m.Log.Printf("no global middlewares")
+			return
+		}
+		for x, z := range m.middlewaresAll {
+			m.Log.Printf("[global] [%3d] [middleware] %v\n", x, z)
+		}
+	} else {
+		//show  map  middlewares
+		if len(m.middlewares) == 0 {
+			m.Log.Printf("no middlewares")
+			return
+		}
+		if len(m.middlewares) > 0 {
+			for x, v := range m.middlewares {
+				if len(v) > 0 {
+					for a, z := range v {
+						m.Log.Printf("[prefix: %s] [ %3d ] [middleware] %v\n", x, a, z)
+					}
+				}
+
+			}
 		}
 	}
 }
