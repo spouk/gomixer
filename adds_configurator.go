@@ -10,7 +10,7 @@ import (
 )
 
 const (
-    logConfigPrefix           = "[configurator] "
+    logConfigPrefix           = "[Configurator] "
     logConfigFlags            = log.Ldate | log.Ltime | log.Lshortfile
     successReadConfigFile     = "файл конфигурации успешно прочитан"
     msgsuccessReadDumpConfig  = "дамп конфига успешно прочитан"
@@ -21,15 +21,15 @@ const (
     dumpfileperm = 0666
 )
 
-type configurator struct {
+type Configurator struct {
     logger             *log.Logger
     pathDumpConfigFile string
     Config             interface{}
 }
 
-func NewConfigurator(fileConfigYaml string, logout io.Writer, config interface{}) *configurator {
+func NewConfigurator(fileConfigYaml string, logout io.Writer, config interface{}) *Configurator {
     //создаю инстанс конфигуратора
-    c := &configurator{
+    c := &Configurator{
 	Config:config,
     }
     //создаю логгер
@@ -60,7 +60,7 @@ func NewConfigurator(fileConfigYaml string, logout io.Writer, config interface{}
 }
 
 //запись дампа конфигурационного файла
-func (c *configurator) WriteDumpConfig() error {
+func (c *Configurator) WriteDumpConfig() error {
 	f, err := os.OpenFile(c.pathDumpConfigFile, dumpfileflag, dumpfileperm)
 	if err != nil {
 		return err
@@ -78,7 +78,7 @@ func (c *configurator) WriteDumpConfig() error {
 }
 
 //читаем дамп конфигурационного файла
-func (c *configurator) ReadDumpConfig() (error) {
+func (c *Configurator) ReadDumpConfig() (error) {
 	f, err := os.Open(c.pathDumpConfigFile)
 	if err != nil {
 		return err
